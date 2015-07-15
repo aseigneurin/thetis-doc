@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The stats command &mdash; Thetis 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Thetis 2.0 documentation" href="index.html"/>
+        <link rel="next" title="The refresh command" href="refresh.html"/>
+        <link rel="prev" title="The check command" href="check.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Thetis
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get-started.html">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#commands">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hdfs.html">The HDFS structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">The schema.json file</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#fields">Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="infer-schema.html">The infer-schema command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="create.html">The create command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="create.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clean.html">The clean command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="check.html">The check command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="check.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#check-criteria">Check criteria</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">The stats command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refresh.html">The refresh command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#example">Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-true">delta=true</a></li>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-false">delta=false</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">The merge command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="oozie.html">Deploying thetis with Oozie</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oozie.html#common-setup">Common setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oozie.html#setting-up-an-engine">Setting up an engine</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Thetis</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>The stats command</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/stats.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="the-stats-command">
+<h1>The stats command<a class="headerlink" href="#the-stats-command" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal"><span class="pre">stats</span></code> command will compute statistics on the datasets you will specify and write a report
+as a Hive table.</p>
+<p>You can specify a single dataset or a list of dataset defined in an engine or all the datsets of a tenant.</p>
+<div class="section" id="input">
+<h2>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h2>
+<p>You always have to specify the tenant you want to use, add the <code class="docutils literal"><span class="pre">--tenant</span></code> option (or <code class="docutils literal"><span class="pre">-t</span></code>).</p>
+<p>Then there is three options :</p>
+<ul>
+<li><p class="first">A single dataset, add the <code class="docutils literal"><span class="pre">--dataset</span></code> option (or <code class="docutils literal"><span class="pre">-d</span></code>)</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./thetis.sh --tenant my_tenant --dataset my_dataset stats
+or
+<span class="nv">$ </span>./thetis.sh -t my_tenant -d my_dataset stats
+</pre></div>
+</div>
+</li>
+</ul>
+<p>will compute statistics of the dataset my_dataset for the tenant my_tenant</p>
+<ul>
+<li><p class="first">A list of datasets specified in an engine, add the <code class="docutils literal"><span class="pre">--engine</span></code> option (or <code class="docutils literal"><span class="pre">-e</span></code>)</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./thetis.sh --tenant my_tenant --engine my_engine stats
+or
+<span class="nv">$ </span>./thetis.sh -t my_tenant -e my_engine stats
+</pre></div>
+</div>
+</li>
+</ul>
+<p>will compute statistics of all the dataSets defined in the engine my_engine for the tenant my_tenant</p>
+<ul>
+<li><p class="first">All datasets for a tenant</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./thetis.sh --tenant my_tenant stats
+or
+<span class="nv">$ </span>./thetis.sh -t my_tenant stats
+</pre></div>
+</div>
+</li>
+</ul>
+<p>will compute statistics of all the dataSets for the tenant my_tenant</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>Thetis will generate a Hive table stored here : <code class="docutils literal"><span class="pre">/group/my_tenant/metadata/stats_report/'dateTime'</span></code>
+where <code class="docutils literal"><span class="pre">dateTime</span></code> is the date you submitted the job (under the following format : <code class="docutils literal"><span class="pre">yyyy-MM-dd_hhmmss</span></code>).
+Each line represents one feature. All the stats reports will be available in the hive table : <code class="docutils literal"><span class="pre">my_tenant_STATS_REPORT</span></code></p>
+<p>Here is the list of the statistics available. Some information will be available for all the features, and some
+will be specific to quantitative data.</p>
+<p><strong>Information you will find in both cases</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>index</td>
+<td>the index of the feature in the schema</td>
+</tr>
+<tr class="row-even"><td>filename</td>
+<td>the file&#8217;s name</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>the feature&#8217;s name</td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>the feature&#8217;s type</td>
+</tr>
+<tr class="row-odd"><td>count</td>
+<td>the number of elements</td>
+</tr>
+<tr class="row-even"><td>emptyValuePercentage</td>
+<td>the percentage of missing values</td>
+</tr>
+<tr class="row-odd"><td>approximate nb of distinct values</td>
+<td>the approximate number of distinct values</td>
+</tr>
+<tr class="row-even"><td>top10</td>
+<td>The 10 modalities with the most individuals</td>
+</tr>
+</tbody>
+</table>
+<p>In the case you don&#8217;t know the type of one feature, the two lasts information can help in ambiguous cases. For example
+if your feature is the number of a month, Thetis will detect that it&#8217;s a quantitative variable. (It&#8217;s obiously not the
+case and computing the average of months doesn&#8217;t make any sense!). But seeing that you will only have 12 distinct
+values, you can deduce that it&#8217;s actually a categorical feature.</p>
+<p><strong>Statistics about quantitative features</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>mean</td>
+<td>the average</td>
+</tr>
+<tr class="row-even"><td>stddev</td>
+<td>the standard deviation</td>
+</tr>
+<tr class="row-odd"><td>skewness</td>
+<td>the <a class="reference external" href="http://en.wikipedia.org/wiki/Skewness">skewness</a></td>
+</tr>
+<tr class="row-even"><td>kurtosis</td>
+<td>the <a class="reference external" href="http://en.wikipedia.org/wiki/Kurtosis">kurtosis</a></td>
+</tr>
+<tr class="row-odd"><td>min</td>
+<td>the minimum</td>
+</tr>
+<tr class="row-even"><td>quantile(<strong>x</strong>)</td>
+<td>the quantile of order <strong>x</strong> <a class="footnote-reference" href="#id2" id="id1">[1]</a></td>
+</tr>
+<tr class="row-odd"><td>max</td>
+<td>the maximum</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>9 quantiles are given, between 0.01 and 0.99. Note that the quantile of order 0.5 is the median.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>For a dataset <code class="docutils literal"><span class="pre">my_dataset</span></code> for the tenant <code class="docutils literal"><span class="pre">my_tenant</span></code> with the following schema in <code class="docutils literal"><span class="pre">/group/my_tenant/metadata/schema/my_dataset/schema.json</span></code> :</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;hdfsRawDirectory&quot;</span> <span class="p">:</span> <span class="s2">&quot;/group/my_tenant/raw&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;hdfsDataDirectory&quot;</span> <span class="p">:</span> <span class="s2">&quot;/group/my_tenant/data/my_dataset&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;fileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;rawData-yyyyMMdd.txt&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;charset&quot;</span> <span class="p">:</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;delimiter&quot;</span> <span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;delta&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;filter&quot;</span> <span class="p">:</span> <span class="s2">&quot;HEADER&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;hiveTable&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;database&quot;</span> <span class="p">:</span> <span class="s2">&quot;my_tenant&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;my_dataset&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;hiveFields&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;myString&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;colType&quot;</span> <span class="p">:</span> <span class="s2">&quot;STRING&quot;</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;myInt&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;colType&quot;</span> <span class="p">:</span> <span class="s2">&quot;INTEGER&quot;</span>
+    <span class="p">}]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When executing <code class="docutils literal"><span class="pre">./thetis.sh</span> <span class="pre">--tenant</span> <span class="pre">my_tenant</span> <span class="pre">--dataset</span> <span class="pre">my_dataset</span> <span class="pre">stats</span></code>, Thetis will generate the report in
+<code class="docutils literal"><span class="pre">/group/my_tenant/metadata/stats_report/'dateTime'</span></code>. It will look like that :</p>
+<div class="highlight-bash"><div class="highlight"><pre>0,<span class="s1">&#39;rawData-yyyyMMdd.txt&#39;</span>,<span class="s1">&#39;myString&#39;</span>,<span class="s1">&#39;STRING&#39;</span>,51863061,0.0,0,0.0,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,1.715436E7,0,zZZT1rtrRQjN<span class="o">(</span><span class="m">518614</span> oc<span class="o">)</span><span class="p">|</span>zzZXqTr53sK2<span class="o">(</span><span class="m">518613</span> oc<span class="o">)</span><span class="p">|</span>ZzzTYlDIxg5n<span class="o">(</span><span class="m">518613</span> oc<span class="o">)</span><span class="p">|</span>zzZoHCXkmIjP<span class="o">(</span><span class="m">518613</span> oc<span class="o">)</span><span class="p">|</span>ZZZvGvtcNkNl<span class="o">(</span><span class="m">518613</span> oc<span class="o">)</span><span class="p">|</span>Zzz5cHq4pYRn<span class="o">(</span><span class="m">518613</span> oc<span class="o">)</span><span class="p">|</span>ZzZ5eXbPdnhn<span class="o">(</span><span class="m">518613</span> oc<span class="o">)</span><span class="p">|</span>zzzz9VORbXvP<span class="o">(</span><span class="m">518613</span> oc<span class="o">)</span><span class="p">|</span>ZzzqYxMNO1Rn<span class="o">(</span><span class="m">518613</span> oc<span class="o">)</span><span class="p">|</span>We4IJC0d6-9Z<span class="o">(</span><span class="m">518613</span> oc<span class="o">)</span>
+1,<span class="s1">&#39;rawData-yyyyMMdd.txt&#39;</span>,<span class="s1">&#39;myInt&#39;</span>,<span class="s1">&#39;INT&#39;</span>,51863061,74.7038,13119388,9.836534066985434,2.4641822679612417,0.022766922365546675,-1.154523634741441,6.0,6.0,6.0,6.0,8.0,10.0,12.0,13.0,14.0,14.0,14.0,9.0,0,<span class="o">(</span><span class="m">38743673</span> oc<span class="o">)</span><span class="p">|</span>10.0<span class="o">(</span><span class="m">1599320</span> oc<span class="o">)</span><span class="p">|</span>11.0<span class="o">(</span><span class="m">1596121</span> oc<span class="o">)</span><span class="p">|</span>9.0<span class="o">(</span><span class="m">1546463</span> oc<span class="o">)</span><span class="p">|</span>12.0<span class="o">(</span><span class="m">1544283</span> oc<span class="o">)</span><span class="p">|</span>8.0<span class="o">(</span><span class="m">1522453</span> oc<span class="o">)</span><span class="p">|</span>7.0<span class="o">(</span><span class="m">1476893</span> oc<span class="o">)</span><span class="p">|</span>6.0<span class="o">(</span><span class="m">1463736</span> oc<span class="o">)</span><span class="p">|</span>13.0<span class="o">(</span><span class="m">1432744</span> oc<span class="o">)</span><span class="p">|</span>14.0<span class="o">(</span><span class="m">937375</span> oc<span class="o">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="refresh.html" class="btn btn-neutral float-right" title="The refresh command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="check.html" class="btn btn-neutral" title="The check command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, DIL.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

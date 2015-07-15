@@ -1,0 +1,95 @@
+Get started
+===========
+
+Thetis is a software that allows you to clean automatically you data. On top of that Thetis can infer a schema on your
+data, check if your data have been correctly cleaned and make some statistics on your features. Furthermore, report are
+created for each step of Thetis. You can access the report either by downloading a csv file or by requesting a Hive
+table (with Hive or Impala).
+
+For the moment Thetis is only usable through a Command Line Interface (CLI). Make sure that you are on a folder
+containing the files ``thetis.jar`` and ``thetis.sh``. The ``thetis.sh`` file is made for not having to specify
+technical configurations but only business ones. To run Thetise execute the following command :
+
+``./thetis.sh <args>``
+
+
+where ``<args>`` are somme arguments detailed below.
+
+
+Commands
+--------
+
+The following commands are available:
+
+infer-schema
+  Infer the schema from some input data. See bellow
+
+check
+  Check that some data is valid according to the schema, and output validation info in /group/TENANT/metadata/check/DATASET
+
+clean
+  Clean some data, reading it using a schema, and output clean data in /group/TENANT/data/DATASET
+
+clean-parquet
+  Same as clean, but output parquet files
+
+stats
+  Compute statistics on the data, to see what's in it in a glance. Result is placed in /group/TENANT/metadata/stats/DATASET
+
+create
+  Create a hive table for the cleaned data
+
+refresh
+  Reload all hive metadata for a tenant, so that new data files can be considered by hive
+
+avro-schema
+  Generate a avro schema for the dataset
+
+
+Each command takes two arguments ``--tenant`` and ``--dataset`` (or ``-t`` and ``-d``) and does the right thing.
+There may also be other ways to call the commands, for backward compatibility or finer-grained feature testing.
+
+Usage
+-----
+
+You can see the up-to-date usage information for Thetis by running ``thetis.sh --help``::
+
+    Usage: thetis [options] <command>...
+
+      <command>...
+            commands to run
+    Possible commands: clean-parquet,stats,refresh-hive-metadata,clean,create-hive-table,check,avro-schema,infer-schema
+
+      -t <value> | --tenant <value>
+            name of the tenant (required)
+      -d <value> | --dataset <value>
+            name of the dataset (if not provided, process all datasets in the tenant)
+
+    The following options are only useful for the 'infer-schema' command
+      --input <value>
+            uri of the file in hdfs (required for infer-schema)
+      --delimiter <value>
+            delimiter character (required for infer-schema)
+      --charset <value>
+            charset of the file in hdfs (utf-8 by default)
+
+Usage example::
+
+    ./thetis.sh --tenant some_tenant --dataset some_dataset clean  # Clean the given dataset
+
+
+The ``--tenant`` option is required for all commands. ``--dataset`` is optional ; if it is not provided, all the dataset
+in the tenant are processed with the given commands::
+
+    ./thetis.sh --tenant some_tenant clean  # Clean all the datasets in the given tenant
+
+More than one command can be provided, in that case, they are executed in sequence::
+
+    ./thetis.sh --tenant some_tenant --dataset some_dataset clean stats  # Clean the dataset, then generate some stats
+
+**Important to note** : stats are computed from cleaned data. So you need to execute a clean before a stats. For exemple,
+the command::
+
+    ./thetis.sh --tenant some_tenant --dataset some_dataset stats clean
+
+won't work. You need to write clean before stats.

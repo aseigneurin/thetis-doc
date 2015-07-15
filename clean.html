@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The clean command &mdash; Thetis 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Thetis 2.0 documentation" href="index.html"/>
+        <link rel="next" title="The check command" href="check.html"/>
+        <link rel="prev" title="The create command" href="create.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Thetis
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get-started.html">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#commands">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hdfs.html">The HDFS structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">The schema.json file</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#fields">Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="infer-schema.html">The infer-schema command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="create.html">The create command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="create.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">The clean command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="check.html">The check command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="check.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#check-criteria">Check criteria</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">The stats command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refresh.html">The refresh command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#example">Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-true">delta=true</a></li>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-false">delta=false</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">The merge command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="oozie.html">Deploying thetis with Oozie</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oozie.html#common-setup">Common setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oozie.html#setting-up-an-engine">Setting up an engine</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Thetis</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>The clean command</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/clean.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="the-clean-command">
+<h1>The clean command<a class="headerlink" href="#the-clean-command" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal"><span class="pre">clean</span></code> command will clean the files specified and write the cleaned data in HDFS.</p>
+<div class="section" id="input">
+<h2>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">clean</span></code> command is really easy to use.</p>
+<p>You always have to specify the tenant you want to use, add the <code class="docutils literal"><span class="pre">--tenant</span></code> option (or <code class="docutils literal"><span class="pre">-t</span></code>).</p>
+<p>Then there is three options :</p>
+<ul>
+<li><p class="first">A single dataset, add the <code class="docutils literal"><span class="pre">--dataset</span></code> option (or <code class="docutils literal"><span class="pre">-d</span></code>)</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./thetis.sh --tenant my_tenant --dataset my_dataset clean
+or
+<span class="nv">$ </span>./thetis.sh -t my_tenant -d my_dataset clean
+</pre></div>
+</div>
+</li>
+</ul>
+<p>will clean the files from the dataset my_dataset for the tenant my_tenant</p>
+<ul>
+<li><p class="first">A list of datasets specified in an engine, add the <code class="docutils literal"><span class="pre">--engine</span></code> option (or <code class="docutils literal"><span class="pre">-e</span></code>)</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./thetis.sh --tenant my_tenant --engine my_engine clean
+or
+<span class="nv">$ </span>./thetis.sh -t my_tenant -e my_engine clean
+</pre></div>
+</div>
+</li>
+</ul>
+<p>will clean the files from all the dataSets defined in the engine my_engine for the tenant my_tenant</p>
+<ul>
+<li><p class="first">All datasets for a tenant</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./thetis.sh --tenant my_tenant clean
+or
+<span class="nv">$ </span>./thetis.sh -t my_tenant clean
+</pre></div>
+</div>
+</li>
+</ul>
+<p>will clean the files from all the dataSets for the tenant my_tenant</p>
+</div>
+<div class="section" id="output">
+<span id="clean-output"></span><h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The cleaned files will be stored and partitioned in this kind of URL :
+<code class="docutils literal"><span class="pre">/group/my_tenant/data/my_dataset/yyyy=2015/MM=06/dd=05/part-00000</span></code>.</p>
+<p>The <code class="docutils literal"><span class="pre">clean</span></code> command cleans a list of datasets. All the datasets are cleaned independently from each others.</p>
+<p>Then thetis find all the files of the current dataset. If a partition
+has been specified in the schema (<code class="docutils literal"><span class="pre">partitionBy</span></code> option, or use of
+variables in <code class="docutils literal"><span class="pre">filePattern</span></code>), the files corresponding to the new
+partition are grouped and treated as a unique file.</p>
+<p>There are four partitions available for the old-style partition (the <code class="docutils literal"><span class="pre">partition</span></code> schema option):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>YEAR_MONTH</td>
+<td>by year and month</td>
+</tr>
+<tr class="row-even"><td>DATE</td>
+<td>by year, month and day</td>
+</tr>
+<tr class="row-odd"><td>DATEHOUR</td>
+<td>by year, month day and hour</td>
+</tr>
+<tr class="row-even"><td>DATETIME</td>
+<td>by year, month, day, hour, minute and second</td>
+</tr>
+</tbody>
+</table>
+<p>Then the cleaning begins. Each line is parsed and those who don&#8217;t contain the right number of fields
+are deleted. If a filter has been set in the parameter it is apply. Typically when the header is
+contained in the files you want to clean, you will use the HEADER filter which will delete all headers.</p>
+<p>Then if you have set a specific transformation to some of your features, it will be applied. There is
+currently four transformations available :</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>COMMA</td>
+<td>replace all &#8221;,&#8221; by &#8221;.&#8221;. It has to be used if you have numeric data where the integer and the decimal part are separate by a comma. It has to be a point.</td>
+</tr>
+<tr class="row-even"><td>SAP</td>
+<td>specific to a dataset. Move the &#8220;-&#8221; from the end of a number to the begining.</td>
+</tr>
+<tr class="row-odd"><td>DATE</td>
+<td>change the date to a &#8220;Hive-readable&#8221; date (YYYY-MM-DD HH:MM:SS)</td>
+</tr>
+<tr class="row-even"><td>STRIP</td>
+<td>specific to a dataset. Take a character in parameter and delete the first and last character of a string of it is the same character as the one specified.</td>
+</tr>
+<tr class="row-odd"><td>REGEX</td>
+<td>Apply the regex replacement specified by the &#8220;pattern&#8221; field. For example, /aa(.+)aa/$1/ replaces &#8220;aaHELLOaa&#8221; with &#8220;HELLO&#8221;.</td>
+</tr>
+</tbody>
+</table>
+<p>The cleaned data are then saved with the format specified in the schema (the default format is the
+text format).</p>
+<p>Metadata about the cleaning are available int the <code class="docutils literal"><span class="pre">metadata</span></code> folder of your tenant in the folder <code class="docutils literal"><span class="pre">clean_report</span></code> :
+<code class="docutils literal"><span class="pre">/group/my_tenant/metadata/clean_report/'dateTime'</span></code>, where dateTime is the date you cleaned your data. Each line
+represents a cleaned file. All the clean reports will be available in the hive table : <code class="docutils literal"><span class="pre">my_tenant_CLEAN_REPORT</span></code>.
+This report gives :</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>dataSetName</td>
+<td>the name of the dataset</td>
+</tr>
+<tr class="row-even"><td>inputPath</td>
+<td>the name of the raw file</td>
+</tr>
+<tr class="row-odd"><td>outputPath</td>
+<td>the path of the cleaned file</td>
+</tr>
+<tr class="row-even"><td>fileOk</td>
+<td>boolean saying if the file has been correctly cleaned</td>
+</tr>
+<tr class="row-odd"><td>creationDate</td>
+<td>creation date of the raw file</td>
+</tr>
+<tr class="row-even"><td>nbLinesInit</td>
+<td>number of lines in the initial file</td>
+</tr>
+<tr class="row-odd"><td>nbLinesTreated</td>
+<td>number of lines in the cleaned file</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>For a dataset <code class="docutils literal"><span class="pre">my_dataset</span></code> for the tenant <code class="docutils literal"><span class="pre">my_tenant</span></code> with the following schema in <code class="docutils literal"><span class="pre">/group/my_tenant/metadata/schema/my_dataset/schema.json</span></code> :</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;hdfsRawDirectory&quot;</span> <span class="p">:</span> <span class="s2">&quot;/group/my_tenant/raw&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;hdfsDataDirectory&quot;</span> <span class="p">:</span> <span class="s2">&quot;/group/my_tenant/data/my_dataset&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;fileName&quot;</span> <span class="p">:</span> <span class="s2">&quot;rawData-yyyyMMdd.txt&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;charset&quot;</span> <span class="p">:</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;delimiter&quot;</span> <span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;delta&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;filter&quot;</span> <span class="p">:</span> <span class="s2">&quot;HEADER&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;partition&quot;</span> <span class="p">:</span> <span class="s2">&quot;DATE&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;hiveTable&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;database&quot;</span> <span class="p">:</span> <span class="s2">&quot;my_tenant&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;my_dataset&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;hiveFields&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;myString&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;colType&quot;</span> <span class="p">:</span> <span class="s2">&quot;STRING&quot;</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;myDate&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;colType&quot;</span> <span class="p">:</span> <span class="s2">&quot;DATE&quot;</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;myInt&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;colType&quot;</span> <span class="p">:</span> <span class="s2">&quot;INTEGER&quot;</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;myDouble&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;colType&quot;</span> <span class="p">:</span> <span class="s2">&quot;DOUBLE&quot;</span>
+    <span class="p">}]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When executing <code class="docutils literal"><span class="pre">./thetis.sh</span> <span class="pre">--tenant</span> <span class="pre">my_tenant</span> <span class="pre">--dataset</span> <span class="pre">my_dataset</span> <span class="pre">clean</span></code> : saying that there is two files from
+my_dataset which have not been cleaned : <code class="docutils literal"><span class="pre">rawData-20150604.txt</span></code> and <code class="docutils literal"><span class="pre">rawData-20150605.txt</span></code>, both stored in
+<code class="docutils literal"><span class="pre">/group/my_tenant/raw/</span></code>.</p>
+<p>Then the cleaned files will be stored here :
+<code class="docutils literal"><span class="pre">/group/my_tenant/data/my_dataset/yyyy=2015/MM=06/dd=04/part-00000</span></code> and
+<code class="docutils literal"><span class="pre">/group/my_tenant/data/my_dataset/yyyy=2015/MM=06/dd=05/part-00000</span></code></p>
+<p>The report will look like that :</p>
+<div class="highlight-bash"><div class="highlight"><pre>rawData-20150604.txt,/group/my_tenant/raw,/group/my_tenant/data/my_dataset/yyyy<span class="o">=</span>2015/MM<span class="o">=</span>06/dd<span class="o">=</span>04,true,2015-06-04 12:00:00,2216,2192
+rawData-20150605.txt,/group/my_tenant/raw,/group/my_tenant/data/my_dataset/yyyy<span class="o">=</span>2015/MM<span class="o">=</span>06/dd<span class="o">=</span>05,true,2015-06-05 12:00:00,5386,5362
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="check.html" class="btn btn-neutral float-right" title="The check command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="create.html" class="btn btn-neutral" title="The create command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, DIL.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

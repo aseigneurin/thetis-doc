@@ -1,0 +1,136 @@
+The stats command
+=================
+
+.. highlight:: bash
+
+The ``stats`` command will compute statistics on the datasets you will specify and write a report
+as a Hive table.
+
+You can specify a single dataset or a list of dataset defined in an engine or all the datsets of a tenant.
+
+Input
+-----
+
+You always have to specify the tenant you want to use, add the ``--tenant`` option (or ``-t``).
+
+Then there is three options :
+
+- A single dataset, add the ``--dataset`` option (or ``-d``) ::
+
+    $ ./thetis.sh --tenant my_tenant --dataset my_dataset stats
+    or
+    $ ./thetis.sh -t my_tenant -d my_dataset stats
+
+will compute statistics of the dataset my_dataset for the tenant my_tenant
+
+
+- A list of datasets specified in an engine, add the ``--engine`` option (or ``-e``) ::
+
+    $ ./thetis.sh --tenant my_tenant --engine my_engine stats
+    or
+    $ ./thetis.sh -t my_tenant -e my_engine stats
+
+will compute statistics of all the dataSets defined in the engine my_engine for the tenant my_tenant
+
+- All datasets for a tenant ::
+
+    $ ./thetis.sh --tenant my_tenant stats
+    or
+    $ ./thetis.sh -t my_tenant stats
+
+will compute statistics of all the dataSets for the tenant my_tenant
+
+Output
+------
+Thetis will generate a Hive table stored here : ``/group/my_tenant/metadata/stats_report/'dateTime'``
+where ``dateTime`` is the date you submitted the job (under the following format : ``yyyy-MM-dd_hhmmss``).
+Each line represents one feature. All the stats reports will be available in the hive table : ``my_tenant_STATS_REPORT``
+
+Here is the list of the statistics available. Some information will be available for all the features, and some
+will be specific to quantitative data.
+
+**Information you will find in both cases**
+
+
++----------------------------------+---------------------------------------------+
+|index                             |the index of the feature in the schema       |
++----------------------------------+---------------------------------------------+
+|filename                          |the file's name                              |
++----------------------------------+---------------------------------------------+
+|name                              |the feature's name                           |
++----------------------------------+---------------------------------------------+
+|type                              |the feature's type                           |
++----------------------------------+---------------------------------------------+
+|count                             |the number of elements                       |
++----------------------------------+---------------------------------------------+
+|emptyValuePercentage              |the percentage of missing values             |
++----------------------------------+---------------------------------------------+
+|approximate nb of distinct values |the approximate number of distinct values    |
++----------------------------------+---------------------------------------------+
+|top10                             |The 10 modalities with the most individuals  |
++----------------------------------+---------------------------------------------+
+
+
+In the case you don't know the type of one feature, the two lasts information can help in ambiguous cases. For example
+if your feature is the number of a month, Thetis will detect that it's a quantitative variable. (It's obiously not the
+case and computing the average of months doesn't make any sense!). But seeing that you will only have 12 distinct
+values, you can deduce that it's actually a categorical feature.
+
+**Statistics about quantitative features**
+
++----------------+---------------------------------+
+|mean            |the average                      |
++----------------+---------------------------------+
+|stddev          |the standard deviation           |
++----------------+---------------------------------+
+|skewness        |the skewness_                    |
++----------------+---------------------------------+
+|kurtosis        |the kurtosis_                    |
++----------------+---------------------------------+
+|min             |the minimum                      |
++----------------+---------------------------------+
+|quantile(**x**) |the quantile of order **x** [1]_ |
++----------------+---------------------------------+
+|max             |the maximum                      |
++----------------+---------------------------------+
+
+.. [1] 9 quantiles are given, between 0.01 and 0.99. Note that the quantile of order 0.5 is the median.
+
+.. _skewness: http://en.wikipedia.org/wiki/Skewness
+.. _kurtosis: http://en.wikipedia.org/wiki/Kurtosis
+
+Example
+-------
+For a dataset ``my_dataset`` for the tenant ``my_tenant`` with the following schema in ``/group/my_tenant/metadata/schema/my_dataset/schema.json`` :
+
+.. code-block:: json
+
+ {
+   "hdfsRawDirectory" : "/group/my_tenant/raw",
+   "hdfsDataDirectory" : "/group/my_tenant/data/my_dataset",
+   "fileName" : "rawData-yyyyMMdd.txt",
+   "charset" : "UTF-8",
+   "delimiter" : ",",
+   "delta" : true,
+   "filter" : "HEADER",
+   "hiveTable" : {
+     "database" : "my_tenant",
+     "name" : "my_dataset",
+     "hiveFields" : [ {
+       "name" : "myString",
+       "colType" : "STRING"
+     }, {
+       "name" : "myInt",
+       "colType" : "INTEGER"
+     }]
+   }
+ }
+
+When executing ``./thetis.sh --tenant my_tenant --dataset my_dataset stats``, Thetis will generate the report in
+``/group/my_tenant/metadata/stats_report/'dateTime'``. It will look like that : ::
+
+ 0,'rawData-yyyyMMdd.txt','myString','STRING',51863061,0.0,0,0.0,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,1.715436E7,0,zZZT1rtrRQjN(518614 oc)|zzZXqTr53sK2(518613 oc)|ZzzTYlDIxg5n(518613 oc)|zzZoHCXkmIjP(518613 oc)|ZZZvGvtcNkNl(518613 oc)|Zzz5cHq4pYRn(518613 oc)|ZzZ5eXbPdnhn(518613 oc)|zzzz9VORbXvP(518613 oc)|ZzzqYxMNO1Rn(518613 oc)|We4IJC0d6-9Z(518613 oc)
+ 1,'rawData-yyyyMMdd.txt','myInt','INT',51863061,74.7038,13119388,9.836534066985434,2.4641822679612417,0.022766922365546675,-1.154523634741441,6.0,6.0,6.0,6.0,8.0,10.0,12.0,13.0,14.0,14.0,14.0,9.0,0,(38743673 oc)|10.0(1599320 oc)|11.0(1596121 oc)|9.0(1546463 oc)|12.0(1544283 oc)|8.0(1522453 oc)|7.0(1476893 oc)|6.0(1463736 oc)|13.0(1432744 oc)|14.0(937375 oc)
+
+
+

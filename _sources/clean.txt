@@ -1,0 +1,160 @@
+The clean command
+=================
+
+.. highlight:: bash
+
+The ``clean`` command will clean the files specified and write the cleaned data in HDFS.
+
+Input
+-----
+The ``clean`` command is really easy to use.
+
+You always have to specify the tenant you want to use, add the ``--tenant`` option (or ``-t``).
+
+Then there is three options :
+
+- A single dataset, add the ``--dataset`` option (or ``-d``) ::
+
+    $ ./thetis.sh --tenant my_tenant --dataset my_dataset clean
+    or
+    $ ./thetis.sh -t my_tenant -d my_dataset clean
+
+will clean the files from the dataset my_dataset for the tenant my_tenant
+
+
+- A list of datasets specified in an engine, add the ``--engine`` option (or ``-e``) ::
+
+    $ ./thetis.sh --tenant my_tenant --engine my_engine clean
+    or
+    $ ./thetis.sh -t my_tenant -e my_engine clean
+
+will clean the files from all the dataSets defined in the engine my_engine for the tenant my_tenant
+
+- All datasets for a tenant ::
+
+    $ ./thetis.sh --tenant my_tenant clean
+    or
+    $ ./thetis.sh -t my_tenant clean
+
+will clean the files from all the dataSets for the tenant my_tenant
+
+.. _clean-output:
+
+Output
+------
+The cleaned files will be stored and partitioned in this kind of URL :
+``/group/my_tenant/data/my_dataset/yyyy=2015/MM=06/dd=05/part-00000``.
+
+The ``clean`` command cleans a list of datasets. All the datasets are cleaned independently from each others.
+
+Then thetis find all the files of the current dataset. If a partition
+has been specified in the schema (``partitionBy`` option, or use of
+variables in ``filePattern``), the files corresponding to the new
+partition are grouped and treated as a unique file.
+
+There are four partitions available for the old-style partition (the ``partition`` schema option):
+
++---------------+-----------------------------------------------+
+|YEAR_MONTH     |by year and month                              |
++---------------+-----------------------------------------------+
+|DATE           |by year, month and day                         |
++---------------+-----------------------------------------------+
+|DATEHOUR       |by year, month day and hour                    |
++---------------+-----------------------------------------------+
+|DATETIME       |by year, month, day, hour, minute and second   |
++---------------+-----------------------------------------------+
+
+
+Then the cleaning begins. Each line is parsed and those who don't contain the right number of fields
+are deleted. If a filter has been set in the parameter it is apply. Typically when the header is
+contained in the files you want to clean, you will use the HEADER filter which will delete all headers.
+
+Then if you have set a specific transformation to some of your features, it will be applied. There is
+currently four transformations available :
+
++---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+|COMMA          |replace all "," by ".". It has to be used if you have numeric data where the integer and the decimal part are separate by a comma. It has to be a point.   |
++---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+|SAP            |specific to a dataset. Move the "-" from the end of a number to the begining.                                                                              |
++---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+|DATE           |change the date to a "Hive-readable" date (YYYY-MM-DD HH:MM:SS)                                                                                            |
++---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+|STRIP          |specific to a dataset. Take a character in parameter and delete the first and last character of a string of it is the same character as the one specified. |
++---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+|REGEX          |Apply the regex replacement specified by the "pattern" field. For example, /aa(.+)aa/$1/ replaces "aaHELLOaa" with "HELLO".                                |
++---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+The cleaned data are then saved with the format specified in the schema (the default format is the
+text format).
+
+Metadata about the cleaning are available int the ``metadata`` folder of your tenant in the folder ``clean_report`` :
+``/group/my_tenant/metadata/clean_report/'dateTime'``, where dateTime is the date you cleaned your data. Each line
+represents a cleaned file. All the clean reports will be available in the hive table : ``my_tenant_CLEAN_REPORT``.
+This report gives :
+
++---------------+-------------------------------------------------------+
+|dataSetName    |the name of the dataset                                |
++---------------+-------------------------------------------------------+
+|inputPath      |the name of the raw file                               |
++---------------+-------------------------------------------------------+
+|outputPath     |the path of the cleaned file                           |
++---------------+-------------------------------------------------------+
+|fileOk         |boolean saying if the file has been correctly cleaned  |
++---------------+-------------------------------------------------------+
+|creationDate   |creation date of the raw file                          |
++---------------+-------------------------------------------------------+
+|nbLinesInit    |number of lines in the initial file                    |
++---------------+-------------------------------------------------------+
+|nbLinesTreated |number of lines in the cleaned file                    |
++---------------+-------------------------------------------------------+
+
+
+Example
+-------
+
+For a dataset ``my_dataset`` for the tenant ``my_tenant`` with the following schema in ``/group/my_tenant/metadata/schema/my_dataset/schema.json`` :
+
+.. code-block:: json
+
+ {
+   "hdfsRawDirectory" : "/group/my_tenant/raw",
+   "hdfsDataDirectory" : "/group/my_tenant/data/my_dataset",
+   "fileName" : "rawData-yyyyMMdd.txt",
+   "charset" : "UTF-8",
+   "delimiter" : ",",
+   "delta" : true,
+   "filter" : "HEADER",
+   "partition" : "DATE",
+   "hiveTable" : {
+     "database" : "my_tenant",
+     "name" : "my_dataset",
+     "hiveFields" : [ {
+       "name" : "myString",
+       "colType" : "STRING"
+     }, {
+       "name" : "myDate",
+       "colType" : "DATE"
+     }, {
+       "name" : "myInt",
+       "colType" : "INTEGER"
+     }, {
+       "name" : "myDouble",
+       "colType" : "DOUBLE"
+     }]
+   }
+ }
+
+When executing ``./thetis.sh --tenant my_tenant --dataset my_dataset clean`` : saying that there is two files from
+my_dataset which have not been cleaned : ``rawData-20150604.txt`` and ``rawData-20150605.txt``, both stored in
+``/group/my_tenant/raw/``.
+
+Then the cleaned files will be stored here :
+``/group/my_tenant/data/my_dataset/yyyy=2015/MM=06/dd=04/part-00000`` and
+``/group/my_tenant/data/my_dataset/yyyy=2015/MM=06/dd=05/part-00000``
+
+The report will look like that : ::
+
+ rawData-20150604.txt,/group/my_tenant/raw,/group/my_tenant/data/my_dataset/yyyy=2015/MM=06/dd=04,true,2015-06-04 12:00:00,2216,2192
+ rawData-20150605.txt,/group/my_tenant/raw,/group/my_tenant/data/my_dataset/yyyy=2015/MM=06/dd=05,true,2015-06-05 12:00:00,5386,5362
+

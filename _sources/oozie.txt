@@ -1,0 +1,106 @@
+Deploying thetis with Oozie
+===========================
+
+This page describe how to run thetis on an environement without shell
+access, using oozie.
+
+Common setup
+------------
+
+First of all, setup the files that will be needed for all the thetis
+operations. In this document, we'll setup thetis in
+``/river/dil/demo/``.
+
+Your thetis distribution should contain three files: ``thetis.jar``,
+``thetis.sh`` and ``spark.conf``. Create the folder
+``/river/dil/demo/engine/share/lib`` and put them all there.
+
+The last line of ``thetis.sh`` looks like this ::
+
+  java -cp $CLASSPATH -Denv=bigplay -Dfile.encoding=UTF-8 -Djdbc.drivers=org.apache.hadoop.hive.jdbc.HiveDriver com.axa.dil.spark.Main $@
+
+Change the ``-Denv=bigplay`` to ``-Denv=daaspp`` or
+``-Denv=daas``, depending on your environment.
+
+You may also want to tweak ``spark.conf`` to your needs, but that's
+beyond the scope of this document.
+
+
+Setting up an engine
+--------------------
+
+This assumes that you have configured a number of datasets in
+``/river/dil/demo/metadata/schema``. We'll now create an engine, named
+``dailyRun``, that will run a number of datasets.
+
+We create a folder ``/fiver/dil/demo/engine/dailyRun/``, that will
+contain three files: ``datasets.txt``, ``job.properties`` and
+``workflow.xml``.
+
+``datasets.txt`` contains a list of dataset names, one per line. For
+example::
+
+  retraite_dividende
+  retraite_fusion_absorption
+  retraite_pm_inventaire
+  retraite_affiliation
+  retraite_affilie
+  retraite_arbitrage_auto
+  retraite_chgt_age_depart
+  retraite_choix_garantie_sec
+
+``job.properties`` is the following::
+
+  queueName=dil_bicolor
+  nameNode=hdfs\://pp-daas-nameservice
+  jobTracker=ppssnbd1nn01.pp.daas.pp-bigdata.intraxa:8032
+  appPath=${nameNode}/river/dil/demo/engine/dailyRun
+  hiveXml=${nameNode}/river/dil/demo/engine/share/hive/hive-site.xml
+  metastoreUri=thrift://ppssnbd1nn02.pp.daas.pp-bigdata.intraxa:9083
+  metastorePrincipal=hive/ppssnbd1nn02.pp.daas.pp-bigdata.intraxa@PP-BIGDATA.INTRAXA
+
+  oozie.use.system.libpath=true
+  oozie.libpath=${nameNode}/river/dil/demo/engine/share/lib
+  oozie.wf.application.path=${appPath}
+
+  thetisArgs=clean --root /river/dil/demo --tenant dil_bicolor --engine dailyRun
+
+It contains many conguration values, some of which must be tweaked for
+our engine, namely ``appPath`` and ``thetisArgs``. ``thetisArgs``
+contain the arguments passed to the thetis command line, make sure the
+``--root`` value is set to the right thetis root (the folder with the
+``raw``, ``data``, ``engine`` and ``metadata`` subdirs), and that
+``--engine`` is set to the name of the engine.
+
+``workflow.xml`` is, verbatim::
+
+  <?xml version="1.0" encoding="UTF-8"?>
+  <workflow-app name="thetis" xmlns="uri:oozie:workflow:0.4">
+      <global>
+         <configuration>
+              <property>
+                  <name>mapreduce.job.queuename</name>
+                  <value>${queueName}</value>
+              </property>
+          </configuration>
+      </global>
+      <start to="run_thetis" />
+      <action name="run_thetis">
+          <shell xmlns="uri:oozie:shell-action:0.1">
+              <job-tracker>${jobTracker}</job-tracker>
+              <name-node>${nameNode}</name-node>
+              <exec>thetis.sh</exec>
+              <argument>${thetisArgs}</argument>
+              <file>../share/lib/thetis.sh</file>
+              <file>../share/lib/spark.conf</file>
+              <file>../share/lib/thetis.jar</file>
+              <capture-output/>
+          </shell>
+          <ok to="end" />
+          <error to="kill" />
+      </action>
+      <kill name="kill">
+          <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+      </kill>
+      <end name="end" />
+  </workflow-app>

@@ -1,0 +1,80 @@
+Command-line interface
+======================
+
+.. highlight:: bash
+
+Setup for a successful command-line run
+---------------------------------------
+
+
+CLI reference
+-------------
+
+Design: each command takes two arguments ``--tenant`` and ``--dataset`` and does the right thing. There may also be
+other ways to call the commands, for backward compatibility or finer-grained feature testing.
+
+You can see the up-to-date usage information for Thetis by running ``thetis.sh --help``::
+
+    Usage: thetis [options] <command>...
+
+      <command>...
+            commands to run
+    Possible commands: clean-parquet,stats,refresh-hive-metadata,clean,create-hive-table,check,avro-schema,infer-schema
+
+      -t <value> | --tenant <value>
+            name of the tenant (required)
+      -d <value> | --dataset <value>
+            name of the dataset (if not provided, process all datasets in the tenant)
+
+    The following options are only useful for the 'infer-schema' command
+      --input <value>
+            uri of the file in hdfs (required for infer-schema)
+      --delimiter <value>
+            delimiter character (required for infer-schema)
+      --charset <value>
+            charset of the file in hdfs (utf-8 by default)
+
+Usage example::
+
+    ./thetis.sh --tenant some_tenant --dataset some_dataset clean  # Clean the given dataset
+
+
+The ``--tenant`` option is required for all commands. ``--dataset`` is optional ; if it is not provided, all the dataset
+in the tenant are processed with the given commands::
+
+    ./thetis.sh --tenant some_tenant clean  # Clean all the datasets in the given tenant
+
+More than one command can be provided, in that case, they are executed in sequence::
+
+    ./thetis.sh --tenant some_tenant --dataset some_dataset clean stats  # Clean the dataset, then generate some stats
+
+Commands
+~~~~~~~~
+
+The following command are available:
+
+infer-schema
+  Infer the schema from some input data. See bellow
+
+check
+  Check that some data is valid according to the schema, and output validation info in /group/TENANT/metadata/check/DATASET
+
+clean
+  Clean some data, reading it using a schema, and output clean data in /group/TENANT/data/DATASET
+
+clean-parquet
+  Same as clean, but output parquet files
+
+stats
+  Compute statistics on the data, to see what's in it in a glance. Result is placed in /group/TENANT/metadata/stats/DATASET
+
+create-hive-table
+  Create a hive table for the cleaned data
+
+refresh-hive-metadata
+  Reload all hive metadata for a tenant, so that new data files can be considered by hive
+
+avro-schema
+  Generate a avro schema for the dataset
+
+

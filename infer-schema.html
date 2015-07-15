@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The infer-schema command &mdash; Thetis 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Thetis 2.0 documentation" href="index.html"/>
+        <link rel="next" title="The create command" href="create.html"/>
+        <link rel="prev" title="The schema.json file" href="schema.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Thetis
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get-started.html">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#commands">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hdfs.html">The HDFS structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">The schema.json file</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#fields">Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">The infer-schema command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="create.html">The create command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="create.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clean.html">The clean command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="check.html">The check command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="check.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#check-criteria">Check criteria</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">The stats command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refresh.html">The refresh command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#example">Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-true">delta=true</a></li>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-false">delta=false</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">The merge command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="oozie.html">Deploying thetis with Oozie</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oozie.html#common-setup">Common setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oozie.html#setting-up-an-engine">Setting up an engine</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Thetis</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>The infer-schema command</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/infer-schema.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="the-infer-schema-command">
+<h1>The infer-schema command<a class="headerlink" href="#the-infer-schema-command" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal"><span class="pre">infer-schema</span></code> command is special. It looks at the given data to infer a schema in order to create a dataset.</p>
+<div class="section" id="input">
+<h2>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h2>
+<p>Thus, the <code class="docutils literal"><span class="pre">--dataset</span></code> option is required. The user must also provide an the hdfs path of a file to look at
+as <code class="docutils literal"><span class="pre">--input</span></code>, and <code class="docutils literal"><span class="pre">--delimiter</span></code> to specify the delimiter used in the input csv file. <code class="docutils literal"><span class="pre">--charset</span></code> may also be
+provided if the charset (the file encoding) is not UTF-8. By default Thetis considers that each file is containing
+a header. If it&#8217;s not the case you have to specify a file containing it with the command <code class="docutils literal"><span class="pre">--headerFile</span></code>.
+For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./thetis.sh --tenant some_tenant
+    --dataset new_dataset
+    --input /group/some_tenant/raw/some_file.csv
+    --delimiter &quot;;&quot;
+    --headerFile /group/some_tenant/metadata/header/new_dataset/header.csv
+    infer-schema
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>To infer the schema Thetis take the 30 000 first lines of the specified file. It gets
+the header of the file according to the option you gave (inside the file or in a
+separate file). Then the inference begin.</p>
+<p>First it removes the bad lines. Each line that can&#8217;t be parsed or that doesn&#8217;t have the
+same number of features than the header is considered bad and is removed.</p>
+<p>Then for each element of each line it will detect if it&#8217;s either a date, an integer, a double
+or a string. Then it merges the result to give for each feature the number of date,
+integer, double and string it has detected. If one of this four types has been detected
+for at least half the rows, then the feature is considered of this type. If none of them has
+reached 50% the feature is considered as a string.</p>
+<p>Finally all the metadata are stored in a Json file</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>For a dataset <code class="docutils literal"><span class="pre">my_dataset</span></code> for the tenant <code class="docutils literal"><span class="pre">my_tenant</span></code>, a schema will be stored here :
+<code class="docutils literal"><span class="pre">/group/my_tenant/metadata/schema/my_dataset/schema.json</span></code>, and will looks like that :</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;hdfsRawDirectory&quot;</span> <span class="p">:</span> <span class="s2">&quot;/group/my_tenant/raw&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;hdfsDataDirectory&quot;</span> <span class="p">:</span> <span class="s2">&quot;/group/my_tenant/data/my_dataset&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;filePattern&quot;</span> <span class="p">:</span> <span class="s2">&quot;rawData-&lt;yyyy&gt;&lt;mm&gt;&lt;dd&gt;.txt&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;charset&quot;</span> <span class="p">:</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;delimiter&quot;</span> <span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;delta&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;filter&quot;</span> <span class="p">:</span> <span class="s2">&quot;HEADER&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;hiveTable&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;database&quot;</span> <span class="p">:</span> <span class="s2">&quot;my_tenant&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;my_dataset&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;hiveFields&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;myString&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;colType&quot;</span> <span class="p">:</span> <span class="s2">&quot;STRING&quot;</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;myInt&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;colType&quot;</span> <span class="p">:</span> <span class="s2">&quot;INTEGER&quot;</span>
+    <span class="p">}]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="create.html" class="btn btn-neutral float-right" title="The create command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="schema.html" class="btn btn-neutral" title="The schema.json file" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, DIL.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

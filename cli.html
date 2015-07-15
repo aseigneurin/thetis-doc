@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Command-line interface &mdash; Thetis 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Thetis 2.0 documentation" href="index.html"/>
+        <link rel="next" title="The infer-schema command" href="infer-schema.html"/>
+        <link rel="prev" title="The schema.json file" href="schema.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Thetis
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="hdfs.html">The HDFS structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">The schema.json file</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#fields">Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Command-line interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup-for-a-successful-command-line-run">Setup for a successful command-line run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cli-reference">CLI reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#commands">Commands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="infer-schema.html">The infer-schema command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="create.html">The create command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="create.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clean.html">The clean command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="check.html">The check command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="check.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#check-criteria">Check criteria</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">The stats command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refresh.html">The refresh command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#example">Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-true">delta=true</a></li>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-false">delta=false</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Thetis</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Command-line interface</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/cli.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="command-line-interface">
+<h1>Command-line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup-for-a-successful-command-line-run">
+<h2>Setup for a successful command-line run<a class="headerlink" href="#setup-for-a-successful-command-line-run" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="cli-reference">
+<h2>CLI reference<a class="headerlink" href="#cli-reference" title="Permalink to this headline">¶</a></h2>
+<p>Design: each command takes two arguments <code class="docutils literal"><span class="pre">--tenant</span></code> and <code class="docutils literal"><span class="pre">--dataset</span></code> and does the right thing. There may also be
+other ways to call the commands, for backward compatibility or finer-grained feature testing.</p>
+<p>You can see the up-to-date usage information for Thetis by running <code class="docutils literal"><span class="pre">thetis.sh</span> <span class="pre">--help</span></code>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>Usage: thetis <span class="o">[</span>options<span class="o">]</span> &lt;<span class="nb">command</span>&gt;...
+
+  &lt;<span class="nb">command</span>&gt;...
+        commands to run
+Possible commands: clean-parquet,stats,refresh-hive-metadata,clean,create-hive-table,check,avro-schema,infer-schema
+
+  -t &lt;value&gt; <span class="p">|</span> --tenant &lt;value&gt;
+        name of the tenant <span class="o">(</span>required<span class="o">)</span>
+  -d &lt;value&gt; <span class="p">|</span> --dataset &lt;value&gt;
+        name of the dataset <span class="o">(</span><span class="k">if</span> not provided, process all datasets in the tenant<span class="o">)</span>
+
+The following options are only useful <span class="k">for</span> the <span class="s1">&#39;infer-schema&#39;</span> <span class="nb">command</span>
+  --input &lt;value&gt;
+        uri of the file in hdfs <span class="o">(</span>required <span class="k">for</span> infer-schema<span class="o">)</span>
+  --delimiter &lt;value&gt;
+        delimiter character <span class="o">(</span>required <span class="k">for</span> infer-schema<span class="o">)</span>
+  --charset &lt;value&gt;
+        charset of the file in hdfs <span class="o">(</span>utf-8 by default<span class="o">)</span>
+</pre></div>
+</div>
+<p>Usage example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>./thetis.sh --tenant some_tenant --dataset some_dataset clean  <span class="c"># Clean the given dataset</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">--tenant</span></code> option is required for all commands. <code class="docutils literal"><span class="pre">--dataset</span></code> is optional ; if it is not provided, all the dataset
+in the tenant are processed with the given commands:</p>
+<div class="highlight-bash"><div class="highlight"><pre>./thetis.sh --tenant some_tenant clean  <span class="c"># Clean all the datasets in the given tenant</span>
+</pre></div>
+</div>
+<p>More than one command can be provided, in that case, they are executed in sequence:</p>
+<div class="highlight-bash"><div class="highlight"><pre>./thetis.sh --tenant some_tenant --dataset some_dataset clean stats  <span class="c"># Clean the dataset, then generate some stats</span>
+</pre></div>
+</div>
+<div class="section" id="commands">
+<h3>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h3>
+<p>The following command are available:</p>
+<dl class="docutils">
+<dt>infer-schema</dt>
+<dd>Infer the schema from some input data. See bellow</dd>
+<dt>check</dt>
+<dd>Check that some data is valid according to the schema, and output validation info in /group/TENANT/metadata/check/DATASET</dd>
+<dt>clean</dt>
+<dd>Clean some data, reading it using a schema, and output clean data in /group/TENANT/data/DATASET</dd>
+<dt>clean-parquet</dt>
+<dd>Same as clean, but output parquet files</dd>
+<dt>stats</dt>
+<dd>Compute statistics on the data, to see what&#8217;s in it in a glance. Result is placed in /group/TENANT/metadata/stats/DATASET</dd>
+<dt>create-hive-table</dt>
+<dd>Create a hive table for the cleaned data</dd>
+<dt>refresh-hive-metadata</dt>
+<dd>Reload all hive metadata for a tenant, so that new data files can be considered by hive</dd>
+<dt>avro-schema</dt>
+<dd>Generate a avro schema for the dataset</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="infer-schema.html" class="btn btn-neutral float-right" title="The infer-schema command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="schema.html" class="btn btn-neutral" title="The schema.json file" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, DIL.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+The create command
+==================
+
+
+.. highlight:: bash
+
+The ``create`` command (formerly ``create-hive-table``) will generate and execute a hive script
+to drop (if it already exists) and create a hive/impala table as specified in the schema of each dataset specified.
+
+You can specify a single dataset or a list of dataset defined in an engine or all the datsets of a tenant.
+
+Thetis types to Hive/Impala types conversions:
+
++---------------+--------------------+
+|  Thetis type  |  Hive/Impala type  |
++===============+====================+
+|  STRING       |  STRING            |
++---------------+--------------------+
+|  DOUBLE       |  DOUBLE            |
++---------------+--------------------+
+|  INTEGER      |  INT               |
++---------------+--------------------+
+|  DATE         |  TIMESTAMP         |
++---------------+--------------------+
+|  LONG         |  LONG              |
++---------------+--------------------+
+
+Input
+-----
+
+You always have to specify the tenant you want to use, add the ``--tenant`` option (or ``-t``).
+
+Then there is three options :
+
+- A single dataset, add the ``--dataset`` option (or ``-d``) ::
+
+    $ ./thetis.sh --tenant my_tenant --dataset my_dataset create
+    or
+    $ ./thetis.sh -t my_tenant -d my_dataset create
+
+will create the hive table as defined by the schema of the dataset my_dataset for the tenant my_tenant
+
+
+- A list of datasets specified in an engine, add the ``--engine`` option (or ``-e``) ::
+
+    $ ./thetis.sh --tenant my_tenant --engine my_engine create
+    or
+    $ ./thetis.sh -t my_tenant -e my_engine create
+
+will create the hive tables as defined by the schemas of all the dataSets defined in the engine my_engine for the tenant my_tenant
+
+- All datasets for a tenant ::
+
+    $ ./thetis.sh --tenant my_tenant create
+    or
+    $ ./thetis.sh -t my_tenant create
+
+will create the hive tables as defined by the schemas of all the dataSets for the tenant my_tenant
+
+Output
+------
+
+Thetis will generate a hql script for each dataset in ``/group/my_tenant/metadata/hive/my_dataset/create-table.hql`` and execute it
+to create a hive/impala table my_dataset in the database my_tenant.
+
+Example
+-------
+
+For a dataset ``my_dataset`` for the tenant ``my_tenant`` with the following schema in ``/group/my_tenant/metadata/schema/my_dataset/schema.json`` :
+
+.. code-block:: json
+
+ {
+   "hdfsRawDirectory" : "/group/my_tenant/raw",
+   "hdfsDataDirectory" : "/group/my_tenant/data/my_dataset",
+   "fileName" : "rawData-yyyyMMdd.txt",
+   "charset" : "UTF-8",
+   "delimiter" : ",",
+   "delta" : true,
+   "filter" : "HEADER",
+   "hiveTable" : {
+     "database" : "my_tenant",
+     "name" : "my_dataset",
+     "hiveFields" : [ {
+       "name" : "myString",
+       "colType" : "STRING"
+     }, {
+       "name" : "myDate",
+       "colType" : "DATE"
+     }, {
+       "name" : "myInt",
+       "colType" : "INTEGER"
+     }, {
+       "name" : "myDouble",
+       "colType" : "DOUBLE"
+     }]
+   }
+ }
+
+When executing ``./thetis.sh --tenant my_tenant --dataset my_dataset create``, Thetis will generate this hql script in
+``/group/my_tenant/metadata/hive/my_dataset/create-table.hql`` :
+
+.. code-block:: sql
+
+ DROP TABLE IF EXISTS dataset;
+
+ CREATE EXTERNAL TABLE IF NOT EXISTS dataset (
+   myString STRING,
+   myDate TIMESTAMP,
+   myInt INT,
+   myDouble DOUBLE)
+ ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+ LOCATION '/group/my_tenant/data/my_dataset';
+
+And this script will be automatically executed in Hive (in the database ``my_tenant``).
+
+

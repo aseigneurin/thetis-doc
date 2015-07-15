@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Deploying thetis with Oozie &mdash; Thetis 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Thetis 2.0 documentation" href="index.html"/>
+        <link rel="prev" title="The merge command" href="merge.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Thetis
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get-started.html">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#commands">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hdfs.html">The HDFS structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">The schema.json file</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#fields">Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="infer-schema.html">The infer-schema command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="create.html">The create command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="create.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clean.html">The clean command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="check.html">The check command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="check.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#check-criteria">Check criteria</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">The stats command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refresh.html">The refresh command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#example">Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-true">delta=true</a></li>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-false">delta=false</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">The merge command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Deploying thetis with Oozie</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#common-setup">Common setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-an-engine">Setting up an engine</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Thetis</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Deploying thetis with Oozie</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/oozie.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="deploying-thetis-with-oozie">
+<h1>Deploying thetis with Oozie<a class="headerlink" href="#deploying-thetis-with-oozie" title="Permalink to this headline">¶</a></h1>
+<p>This page describe how to run thetis on an environement without shell
+access, using oozie.</p>
+<div class="section" id="common-setup">
+<h2>Common setup<a class="headerlink" href="#common-setup" title="Permalink to this headline">¶</a></h2>
+<p>First of all, setup the files that will be needed for all the thetis
+operations. In this document, we&#8217;ll setup thetis in
+<code class="docutils literal"><span class="pre">/river/dil/demo/</span></code>.</p>
+<p>Your thetis distribution should contain three files: <code class="docutils literal"><span class="pre">thetis.jar</span></code>,
+<code class="docutils literal"><span class="pre">thetis.sh</span></code> and <code class="docutils literal"><span class="pre">spark.conf</span></code>. Create the folder
+<code class="docutils literal"><span class="pre">/river/dil/demo/engine/share/lib</span></code> and put them all there.</p>
+<p>The last line of <code class="docutils literal"><span class="pre">thetis.sh</span></code> looks like this</p>
+<div class="highlight-python"><div class="highlight"><pre>java -cp $CLASSPATH -Denv=bigplay -Dfile.encoding=UTF-8 -Djdbc.drivers=org.apache.hadoop.hive.jdbc.HiveDriver com.axa.dil.spark.Main $@
+</pre></div>
+</div>
+<p>Change the <code class="docutils literal"><span class="pre">-Denv=bigplay</span></code> to <code class="docutils literal"><span class="pre">-Denv=daaspp</span></code> or
+<code class="docutils literal"><span class="pre">-Denv=daas</span></code>, depending on your environment.</p>
+<p>You may also want to tweak <code class="docutils literal"><span class="pre">spark.conf</span></code> to your needs, but that&#8217;s
+beyond the scope of this document.</p>
+</div>
+<div class="section" id="setting-up-an-engine">
+<h2>Setting up an engine<a class="headerlink" href="#setting-up-an-engine" title="Permalink to this headline">¶</a></h2>
+<p>This assumes that you have configured a number of datasets in
+<code class="docutils literal"><span class="pre">/river/dil/demo/metadata/schema</span></code>. We&#8217;ll now create an engine, named
+<code class="docutils literal"><span class="pre">dailyRun</span></code>, that will run a number of datasets.</p>
+<p>We create a folder <code class="docutils literal"><span class="pre">/fiver/dil/demo/engine/dailyRun/</span></code>, that will
+contain three files: <code class="docutils literal"><span class="pre">datasets.txt</span></code>, <code class="docutils literal"><span class="pre">job.properties</span></code> and
+<code class="docutils literal"><span class="pre">workflow.xml</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">datasets.txt</span></code> contains a list of dataset names, one per line. For
+example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">retraite_dividende</span>
+<span class="n">retraite_fusion_absorption</span>
+<span class="n">retraite_pm_inventaire</span>
+<span class="n">retraite_affiliation</span>
+<span class="n">retraite_affilie</span>
+<span class="n">retraite_arbitrage_auto</span>
+<span class="n">retraite_chgt_age_depart</span>
+<span class="n">retraite_choix_garantie_sec</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">job.properties</span></code> is the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>queueName=dil_bicolor
+nameNode=hdfs\://pp-daas-nameservice
+jobTracker=ppssnbd1nn01.pp.daas.pp-bigdata.intraxa:8032
+appPath=${nameNode}/river/dil/demo/engine/dailyRun
+hiveXml=${nameNode}/river/dil/demo/engine/share/hive/hive-site.xml
+metastoreUri=thrift://ppssnbd1nn02.pp.daas.pp-bigdata.intraxa:9083
+metastorePrincipal=hive/ppssnbd1nn02.pp.daas.pp-bigdata.intraxa@PP-BIGDATA.INTRAXA
+
+oozie.use.system.libpath=true
+oozie.libpath=${nameNode}/river/dil/demo/engine/share/lib
+oozie.wf.application.path=${appPath}
+
+thetisArgs=clean --root /river/dil/demo --tenant dil_bicolor --engine dailyRun
+</pre></div>
+</div>
+<p>It contains many conguration values, some of which must be tweaked for
+our engine, namely <code class="docutils literal"><span class="pre">appPath</span></code> and <code class="docutils literal"><span class="pre">thetisArgs</span></code>. <code class="docutils literal"><span class="pre">thetisArgs</span></code>
+contain the arguments passed to the thetis command line, make sure the
+<code class="docutils literal"><span class="pre">--root</span></code> value is set to the right thetis root (the folder with the
+<code class="docutils literal"><span class="pre">raw</span></code>, <code class="docutils literal"><span class="pre">data</span></code>, <code class="docutils literal"><span class="pre">engine</span></code> and <code class="docutils literal"><span class="pre">metadata</span></code> subdirs), and that
+<code class="docutils literal"><span class="pre">--engine</span></code> is set to the name of the engine.</p>
+<p><code class="docutils literal"><span class="pre">workflow.xml</span></code> is, verbatim:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;workflow-app name=&quot;thetis&quot; xmlns=&quot;uri:oozie:workflow:0.4&quot;&gt;
+    &lt;global&gt;
+       &lt;configuration&gt;
+            &lt;property&gt;
+                &lt;name&gt;mapreduce.job.queuename&lt;/name&gt;
+                &lt;value&gt;${queueName}&lt;/value&gt;
+            &lt;/property&gt;
+        &lt;/configuration&gt;
+    &lt;/global&gt;
+    &lt;start to=&quot;run_thetis&quot; /&gt;
+    &lt;action name=&quot;run_thetis&quot;&gt;
+        &lt;shell xmlns=&quot;uri:oozie:shell-action:0.1&quot;&gt;
+            &lt;job-tracker&gt;${jobTracker}&lt;/job-tracker&gt;
+            &lt;name-node&gt;${nameNode}&lt;/name-node&gt;
+            &lt;exec&gt;thetis.sh&lt;/exec&gt;
+            &lt;argument&gt;${thetisArgs}&lt;/argument&gt;
+            &lt;file&gt;../share/lib/thetis.sh&lt;/file&gt;
+            &lt;file&gt;../share/lib/spark.conf&lt;/file&gt;
+            &lt;file&gt;../share/lib/thetis.jar&lt;/file&gt;
+            &lt;capture-output/&gt;
+        &lt;/shell&gt;
+        &lt;ok to=&quot;end&quot; /&gt;
+        &lt;error to=&quot;kill&quot; /&gt;
+    &lt;/action&gt;
+    &lt;kill name=&quot;kill&quot;&gt;
+        &lt;message&gt;Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]&lt;/message&gt;
+    &lt;/kill&gt;
+    &lt;end name=&quot;end&quot; /&gt;
+&lt;/workflow-app&gt;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="merge.html" class="btn btn-neutral" title="The merge command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, DIL.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

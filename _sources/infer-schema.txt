@@ -1,0 +1,66 @@
+The infer-schema command
+========================
+
+The ``infer-schema`` command is special. It looks at the given data to infer a schema in order to create a dataset.
+
+Input
+-----
+Thus, the ``--dataset`` option is required. The user must also provide an the hdfs path of a file to look at
+as ``--input``, and ``--delimiter`` to specify the delimiter used in the input csv file. ``--charset`` may also be
+provided if the charset (the file encoding) is not UTF-8. By default Thetis considers that each file is containing
+a header. If it's not the case you have to specify a file containing it with the command ``--headerFile``.
+For example::
+
+    $ ./thetis.sh --tenant some_tenant
+        --dataset new_dataset
+        --input /group/some_tenant/raw/some_file.csv
+        --delimiter ";"
+        --headerFile /group/some_tenant/metadata/header/new_dataset/header.csv
+        infer-schema
+
+
+Output
+------
+To infer the schema Thetis take the 30 000 first lines of the specified file. It gets
+the header of the file according to the option you gave (inside the file or in a
+separate file). Then the inference begin.
+
+First it removes the bad lines. Each line that can't be parsed or that doesn't have the
+same number of features than the header is considered bad and is removed.
+
+Then for each element of each line it will detect if it's either a date, an integer, a double
+or a string. Then it merges the result to give for each feature the number of date,
+integer, double and string it has detected. If one of this four types has been detected
+for at least half the rows, then the feature is considered of this type. If none of them has
+reached 50% the feature is considered as a string.
+
+Finally all the metadata are stored in a Json file
+
+Example
+-------
+
+For a dataset ``my_dataset`` for the tenant ``my_tenant``, a schema will be stored here :
+``/group/my_tenant/metadata/schema/my_dataset/schema.json``, and will looks like that :
+
+.. code-block:: json
+
+ {
+   "hdfsRawDirectory" : "/group/my_tenant/raw",
+   "hdfsDataDirectory" : "/group/my_tenant/data/my_dataset",
+   "filePattern" : "rawData-<yyyy><mm><dd>.txt",
+   "charset" : "UTF-8",
+   "delimiter" : ",",
+   "delta" : true,
+   "filter" : "HEADER",
+   "hiveTable" : {
+     "database" : "my_tenant",
+     "name" : "my_dataset",
+     "hiveFields" : [ {
+       "name" : "myString",
+       "colType" : "STRING"
+     }, {
+       "name" : "myInt",
+       "colType" : "INTEGER"
+     }]
+   }
+ }

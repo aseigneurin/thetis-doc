@@ -1,0 +1,156 @@
+The refresh command
+=============
+
+
+.. highlight:: bash
+
+The ``refresh`` command (formerly ``refresh-hive-metadata``) will generate and execute a hive script
+to add all partitions and refresh the impala cache on the hive table of each dataset specified.
+For "full" dataset, it will alter the location of the current table to the last partition of the "all" table. (see TODO)
+
+You can specify a single dataset or a list of dataset defined in an engine or all the datsets of a tenant.
+
+Input
+-----
+
+You always have to specify the tenant you want to use, add the ``--tenant`` option (or ``-t``).
+
+Then there is three options :
+
+- A single dataset, add the ``--dataset`` option (or ``-d``) ::
+
+    $ ./thetis.sh --tenant my_tenant --dataset my_dataset refresh
+    or
+    $ ./thetis.sh -t my_tenant -d my_dataset refresh
+
+will refresh the hive/impala table as defined by the schema of the dataset my_dataset for the tenant my_tenant
+
+
+- A list of datasets specified in an engine, add the ``--engine`` option (or ``-e``) ::
+
+    $ ./thetis.sh --tenant my_tenant --engine my_engine create
+    or
+    $ ./thetis.sh -t my_tenant -e my_engine create
+
+will refresh the hive/impala table as defined by the schemas of all the dataSets defined in the engine my_engine for the tenant my_tenant
+
+- All datasets for a tenant ::
+
+    $ ./thetis.sh --tenant my_tenant create
+    or
+    $ ./thetis.sh -t my_tenant create
+
+will refresh the hive/impala table as defined by the schemas of all the dataSets for the tenant my_tenant
+
+Output
+------
+
+Thetis will generate a hql script for each dataset in ``/group/my_tenant/metadata/hive/my_dataset/refreshMetadata.hql`` and
+an impala script in ``/group/my_tenant/metadata/hive/my_dataset/refreshImpala.sql``
+and execute them to refresh the hive/impala table my_dataset in the database my_tenant.
+
+Example
+-------
+
+
+delta=true
+~~~~~~~~~~
+
+For a dataset ``my_dataset`` for the tenant ``my_tenant`` with the following schema in ``/group/my_tenant/metadata/schema/my_dataset/schema.json`` :
+
+.. code-block:: json
+
+ {
+   "hdfsRawDirectory" : "/group/my_tenant/raw",
+   "hdfsDataDirectory" : "/group/my_tenant/data/my_dataset",
+   "fileName" : "rawData-yyyyMMdd.txt",
+   "charset" : "UTF-8",
+   "delimiter" : ",",
+   "delta" : true,
+   "filter" : "HEADER",
+   "hiveTable" : {
+     "database" : "my_tenant",
+     "name" : "my_dataset",
+     "hiveFields" : [ {
+       "name" : "myString",
+       "colType" : "STRING"
+     }, {
+       "name" : "myDate",
+       "colType" : "DATE"
+     }, {
+       "name" : "myInt",
+       "colType" : "INTEGER"
+     }, {
+       "name" : "myDouble",
+       "colType" : "DOUBLE"
+     }]
+   }
+ }
+
+When executing ``./thetis.sh --tenant my_tenant --dataset my_dataset refresh``, Thetis will generate this hql script in
+``/group/my_tenant/metadata/hive/my_dataset/refreshMetadata.hql`` :
+
+.. code-block:: sql
+
+ MSCK REPAIR TABLE my_dataset;
+
+and this impala script in ``/group/my_tenant/metadata/hive/my_dataset/refreshImpala.sql`` :
+
+.. code-block:: sql
+
+ REFRESH my_dataset;
+
+And these scripts will be automatically executed in Hive/Impala (in the database ``my_tenant``).
+
+
+delta=false
+~~~~~~~~~~~
+
+For a dataset ``my_dataset`` for the tenant ``my_tenant`` with the following schema in ``/group/my_tenant/metadata/schema/my_dataset/schema.json`` :
+
+.. code-block:: json
+
+ {
+   "hdfsRawDirectory" : "/group/my_tenant/raw",
+   "hdfsDataDirectory" : "/group/my_tenant/data/my_dataset",
+   "fileName" : "rawData-yyyyMMdd.txt",
+   "charset" : "UTF-8",
+   "delimiter" : ",",
+   "delta" : false,
+   "filter" : "HEADER",
+   "hiveTable" : {
+     "database" : "my_tenant",
+     "name" : "my_dataset",
+     "hiveFields" : [ {
+       "name" : "myString",
+       "colType" : "STRING"
+     }, {
+       "name" : "myDate",
+       "colType" : "DATE"
+     }, {
+       "name" : "myInt",
+       "colType" : "INTEGER"
+     }, {
+       "name" : "myDouble",
+       "colType" : "DOUBLE"
+     }]
+   }
+ }
+
+When executing ``./thetis.sh --tenant my_tenant --dataset my_dataset refresh``, Thetis will generate this hql script in
+``/group/my_tenant/metadata/hive/my_dataset/refreshMetadata.hql`` :
+
+.. code-block:: sql
+
+ MSCK REPAIR TABLE my_dataset_all;
+ ALTER TABLE my_dataset LOCATION '<path to the last partition>';
+
+and this impala script in ``/group/my_tenant/metadata/hive/my_dataset/refreshImpala.sql`` :
+
+.. code-block:: sql
+
+ REFRESH my_dataset_all;
+ REFRESH my_dataset;
+
+And these scripts will be automatically executed in Hive/Impala (in the database ``my_tenant``).
+

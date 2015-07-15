@@ -1,0 +1,64 @@
+The merge command
+=================
+
+.. highlight:: bash
+
+The ``merge`` command is alpha for now. It merge a dataset by replacing old data by new data.
+
+Input
+-----
+You have to specify a dataset and a tenant ::
+
+    $ ./thetis.sh --tenant my_tenant --dataset my_dataset merge
+    or
+    $ ./thetis.sh -t my_tenant -d my_dataset merge
+
+Output
+------
+The ``merge`` command will merge all the files from the dataset. It implies that you must specify in your schema
+the primary key(s) (``isPrimaryKey`` field) and a timestamp (``isTimestamp``). If Thetis find several lines with the
+same primary key it will only keep the most recent one according to the timestamp. If one of the two fields is not
+set, Thetis won't do anything. You can specify several primary keys.
+
+Example
+-------
+
+Here is an example of what a schema should look like if you want to merge a dataset :
+
+.. code-block:: json
+
+  {
+    "hdfsRawDirectory" : "/group/my_tenant/raw",
+    "hdfsDataDirectory" : "/group/my_tenant/data/my_dataset",
+    "fileName" : "rawData-yyyyMMdd.txt",
+    "charset" : "UTF-8",
+    "delimiter" : "¤",
+    "dataDelimiter" : ",",
+    "delta" : true,
+    "filter" : "HEADER",
+    "hiveTable" : {
+      "database" : "test",
+      "name" : "dataset",
+      "hiveFields" : [ {
+        "index" : 0,
+        "name" : "primary",
+        "colType" : "STRING",
+        "isPrimaryKey" : true
+      },{
+        "index" : 1,
+        "name" : "name",
+        "colType" : "STRING"
+      }, {
+        "index" : 2,
+        "name" : "age",
+        "colType" : "INTEGER"
+      }, {
+        "index" : 3,
+        "name" : "date",
+        "colType" : "DATE",
+        "transformation" : "DATE",
+        "pattern" : "yyyy-mm-dd",
+        "isTimestamp" : true
+      }]
+    }
+  }

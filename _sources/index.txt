@@ -1,0 +1,32 @@
+.. Thetis documentation master file, created by
+   sphinx-quickstart on Fri Apr  3 11:35:10 2015.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to Thetis's documentation!
+==================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+   get-started
+   hdfs
+   schema
+   infer-schema
+   create
+   clean
+   check
+   stats
+   refresh
+   merge
+   oozie
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

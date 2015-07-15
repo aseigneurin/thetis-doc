@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The schema.json file &mdash; Thetis 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Thetis 2.0 documentation" href="index.html"/>
+        <link rel="next" title="The infer-schema command" href="infer-schema.html"/>
+        <link rel="prev" title="The HDFS structure" href="hdfs.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Thetis
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get-started.html">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#commands">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hdfs.html">The HDFS structure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">The schema.json file</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fields">Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="infer-schema.html">The infer-schema command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="create.html">The create command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="create.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clean.html">The clean command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="check.html">The check command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="check.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#check-criteria">Check criteria</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">The stats command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refresh.html">The refresh command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#example">Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-true">delta=true</a></li>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-false">delta=false</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">The merge command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="oozie.html">Deploying thetis with Oozie</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oozie.html#common-setup">Common setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oozie.html#setting-up-an-engine">Setting up an engine</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Thetis</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>The schema.json file</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/schema.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="the-schema-json-file">
+<h1>The schema.json file<a class="headerlink" href="#the-schema-json-file" title="Permalink to this headline">¶</a></h1>
+<p>This section documents the format of the schema.json file. This file is used to specify everything that is needed to
+handle a dataset. If you are not familiar with the json format, start with <a class="reference external" href="http://en.wikipedia.org/wiki/JSON">http://en.wikipedia.org/wiki/JSON</a></p>
+<div class="section" id="fields">
+<h2>Fields<a class="headerlink" href="#fields" title="Permalink to this headline">¶</a></h2>
+<p>Here is an example file, with each field annotated.</p>
+<p>Where the input files are located:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;hdfsRawDirectory&quot;</span> <span class="p">:</span> <span class="s2">&quot;/group/someTenant/raw&quot;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>Where to store the output of various commands. Those are optional (their default value is shown here):</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;hdfsDataDirectory&quot; : &quot;/group/someTenant/data/someDataSet&quot;,
+&quot;hdfsStatsDirectory&quot; : &quot;/group/someTenant/metadata/stats/someDataSet&quot;,
+&quot;hdfsCheckDirectory&quot; : &quot;/group/someTenant/metadata/check/someDataSet&quot;,
+&quot;hdfsHiveDirectory&quot; : &quot;/group/someTenant/metadata/hive/someDataSet&quot;,
+</pre></div>
+</div>
+<p>The name of the input file. It can contain variables of the form
+<code class="docutils literal"><span class="pre">&lt;VARIABLE&gt;</span></code> or <code class="docutils literal"><span class="pre">&lt;VARIABLE:REGEX&gt;</span></code>: a variable name followed by an
+optional regex that the variable should match. If no regex is given,
+the variable matches as many digits as there are letters in the
+variable name (yyyy matches 4 digits, dd matches 2 digits):</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;filePattern&quot; : &quot;log-&lt;yyyy&gt;&lt;mm&gt;&lt;dd&gt;_&lt;server:\d&gt;.csv&quot;
+</pre></div>
+</div>
+<p>How to partition the output, of the form <code class="docutils literal"><span class="pre">yyyy/mm/dd</span></code>. If not provided, default to all the variables in <code class="docutils literal"><span class="pre">filePattern</span></code>, in the order in which they appear:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;partitionBy&quot; : &quot;yyyy/server/mm&quot;
+</pre></div>
+</div>
+<p>The kind of partition to use in the output. For more details, see the
+<a class="reference internal" href="clean.html#clean-output"><span>the output the clean command</span></a>. This is
+deprecated, <code class="docutils literal"><span class="pre">filePattern</span></code> should be used instead:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;partition&quot; : null,
+</pre></div>
+</div>
+<p>The name of the input file. It may include a date pattern
+(&#8220;yyyymmddhh&#8221;, &#8220;yyyymmdd&#8221;, &#8220;yyyyMMdd&#8221;, &#8220;hhmmss&#8221;, &#8220;yyyymm&#8221;, or
+&#8220;yymm&#8221;). This is deprecated, <code class="docutils literal"><span class="pre">partitionBy</span></code> should be used instead:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;fileName&quot; : &quot;pouet.txt&quot;,
+</pre></div>
+</div>
+<p>The charset of the input file (learn about this on <a class="reference external" href="http://en.wikipedia.org/wiki/Character_encoding">wikipedia</a>):</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;charset&quot; : &quot;UTF-8&quot;,
+</pre></div>
+</div>
+<p>The delimiter in the csv input file:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;delimiter&quot; : &quot;¤&quot;,
+</pre></div>
+</div>
+<p>The delimiter of the csv output file (optional, uses the input delimiter if not given):</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;dataDelimiter&quot; : null,
+</pre></div>
+</div>
+<p>The csv escape char to use. Default to <code class="docutils literal"><span class="pre">\</span></code>. Change this if you have <code class="docutils literal"><span class="pre">\</span></code> in your data and don&#8217;t want it to be destroyed by the clean:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;escapeChar&quot; : null,
+</pre></div>
+</div>
+<p>The csv quote char to use. Default to <code class="docutils literal"><span class="pre">&quot;</span></code>. Change this if you have <code class="docutils literal"><span class="pre">&quot;</span></code> in your data and don&#8217;t want it to be destroyed by the clean:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;quoteChar&quot; : null,
+</pre></div>
+</div>
+<p>Whether to work in delta mode. See <a class="reference internal" href="clean.html#clean-output"><span>the output the clean command</span></a> for more details on the delta mode:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;delta&quot; : true,
+</pre></div>
+</div>
+<p>If set, reduce to the given number of spark partitions. Use when you have a lot of small files:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;numberOfPartitionPerFile&quot; : null,
+</pre></div>
+</div>
+<p>The filter to apply on the file. Lines filtered out are not included in the output. Options include &#8220;HEADER&#8221; and &#8220;BICOLOR&#8221;.</p>
+<blockquote>
+<div>&#8220;filter&#8221; : &#8220;HEADER&#8221;,</div></blockquote>
+<p>The name of the tenant:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;tenant&quot; : &quot;someTenant&quot;,
+</pre></div>
+</div>
+<p>The format of the output. Can be TEXT, PARQUET or AVRO:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;storageFormat&quot; : &quot;TEXT&quot;
+</pre></div>
+</div>
+<p>Information about the hive table:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;hiveTable&quot; : {
+</pre></div>
+</div>
+<p>Name of the hive database</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;database&quot; : &quot;test&quot;,
+</pre></div>
+</div>
+<p>Name of the hive table</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;name&quot; : &quot;pouet&quot;,
+</pre></div>
+</div>
+<p>The list of fields:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;hiveFields&quot; : [ {
+</pre></div>
+</div>
+<p>The name of the field:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;name&quot; : &quot;firstname&quot;,
+</pre></div>
+</div>
+<p>The type of the field, can be STRING, FLOAT, DOUBLE, INTEGER, LONG, DATE, DECIMAL or BOOLEAN:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;colType&quot; : &quot;STRING&quot;,
+</pre></div>
+</div>
+<p>A transformation to apply. Can be COMMA, SAP or DATE. See <a class="reference internal" href="clean.html#clean-output"><span>the output the clean command</span></a> for more
+info about the transformations. If there is a transformation and it requires an argument, pattern contains the argument:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;transformation&quot; : null,
+&quot;pattern&quot; : null,
+</pre></div>
+</div>
+<p>A comment describing the field:</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;comment&quot; : null,
+</pre></div>
+</div>
+<p>A field may only be found in input files after a certain date. If the input file is before that date, the default value
+is used (if no default is provided, the field is left empty):</p>
+<div class="highlight-json"><div class="highlight"><pre>&quot;validFrom&quot; : &quot;2015-12-25&quot;,
+&quot;defaultWhenInvalid&quot; : null
+</pre></div>
+</div>
+<p>The field can be repeated as many times as necessary</p>
+<div class="highlight-json"><div class="highlight"><pre>}, {
+  &quot;name&quot; : &quot;name&quot;,
+  &quot;colType&quot; : &quot;STRING&quot;,
+  &quot;transformation&quot; : null,
+  &quot;comment&quot; : null,
+  &quot;pattern&quot; : null,
+  &quot;validFrom&quot; : null,
+  &quot;defaultWhenInvalid&quot; : null
+}]
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="infer-schema.html" class="btn btn-neutral float-right" title="The infer-schema command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hdfs.html" class="btn btn-neutral" title="The HDFS structure" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, DIL.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

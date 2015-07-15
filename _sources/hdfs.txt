@@ -1,0 +1,16 @@
+The HDFS structure
+==================
+
+Thetis expects a specific structure in the HDFS file system.
+
+First of all, there are tenants. Each tenant has a directory of the form ``/group/TENANT``.
+
+Raw data should go in ``/group/TENANT/raw``.
+
+A tenant has many dataset. Each dataset is defined by a schema file located at ``/group/TENANT/metadata/schema/DATASET/schema.json``.
+
+Various metadata (check, stats) are outputed to various subdirs of ``/group/TENANT/metadata/``.
+
+The cleaned data are outputed to ``/group/TENANT/data/DATASET``.
+
+All path, except the path to the schema itself, are configurable in the ``schema.json`` file.

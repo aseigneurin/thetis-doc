@@ -1,0 +1,91 @@
+The check command
+=================
+
+The ``check`` command can be used to check that the schema for a dataset or a list of dataset actually matches the data.
+It performs the same operations as ``clean``, but does not output the resulting files. Instead, it provides a report
+containing information about the data.
+
+Usage
+-----
+
+The usage is the same as the other commands. See (TODO).
+
+Check criteria
+--------------
+
+Check will look at the criteria file (``/group/TENANT/metadata/criteria/criteria.json``) to determine whether to
+consider a file as OK. If the file does not exist, all lines will be considered OK.
+
+``criteria.json`` is a json file with the following fields:
+
+maxRatioNbLines
+  The maximum ratio between the number of lines of two consecutive files. This help detects if a file is much bigger or much smalled than usual.
+maxRatioSize:
+  Same as the previous one, but with raw size of the file
+maxKoPerCol:
+  The maximum number of bad fields per column
+validateHeader:
+  Whether to validate the header
+validateLastLine:
+  Whether to validate the last line
+
+
+
+Output
+------
+
+The report is written in the check folder, which can be configured in the schema as ``hdfsCheckDirectory`` and defaults to
+``/group/TENANT/metadata/check/DATASET/``. It is also written in ``/group/TENANT/metadata/check/reports/DATETIME``.
+
+The report is a csv field with one line by input file. Each line has the following fields :
+
++---------------+-------------------------------------------------------------------------------------------------------------+
+|fileOK         |Whether the file is okay (`true` or `false`). This depends on the check criteria (see above)                 |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|datasetName    |The name of the dataset                                                                                      |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|fileName       |The name of the input file                                                                                   |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|partitionPath  |The path of the partition, if there is one                                                                   |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|size           |The size of the file                                                                                         |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|ratioSize      |The ratio between the size of the file, and the size of the previous file (chronologically) in the dataset   |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|headerOk       |Whether the header is okay                                                                                   |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|colPlus        |Columns that were added compared to the previous file (if any)                                               |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|colMinus       |Columns that were removed compared to the previous file (if any)                                             |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|nbCol          |The number of columns                                                                                        |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|nbLines        |The number of lines                                                                                          |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|ratioNbLines   |The ratio between the number of lines of the file, and the number of lines of the previous file              |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|lastLineOk     |Whether the last line is okay (has the right number of fields). If that's not the case, maybe the file wasn't|
+|               |fully transfered                                                                                             |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|lineKO         |The number of bad lines (wring number of fields)                                                             |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|percentLineKO  |The percentage of bad lines                                                                                  |
++---------------+-------------------------------------------------------------------------------------------------------------+
+|colKo          |The list of columns were the type conversion fails, along with the number for failing fields                 |
++---------------+-------------------------------------------------------------------------------------------------------------+
+
+The bad lines are written in the following folder : ``/group/TENANT/metadata/check/DATASET/bad_lines/`` You will find one folder
+ by file containing bad lines. In each folder you will find a file containing the bad lines.
+
+Example
+-------
+
+
+.. code-block:: bash
+
+  ./thetis.sh --tenant someTenant --dataset someDataset check
+
+The resulting check report might look like::
+
+  fileOK|datasetName|fileName|partitionDate|size|ratioSize|headerOk|colPlus|colMinus|nbCol|nbLines|ratioNbLines|lastLineOk|lineKO|percentLineKO|colKo
+  true|logs|webserver_log_file_2015_03_01.txt|None|3981423495|None|true|||14|45022551|None|true|194994|0.43310293555259705|

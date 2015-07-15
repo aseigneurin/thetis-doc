@@ -1,0 +1,139 @@
+The schema.json file
+====================
+.. highlight:: json
+
+This section documents the format of the schema.json file. This file is used to specify everything that is needed to
+handle a dataset. If you are not familiar with the json format, start with http://en.wikipedia.org/wiki/JSON
+
+Fields
+------
+
+Here is an example file, with each field annotated.
+
+Where the input files are located::
+
+    {
+      "hdfsRawDirectory" : "/group/someTenant/raw",
+
+Where to store the output of various commands. Those are optional (their default value is shown here)::
+
+      "hdfsDataDirectory" : "/group/someTenant/data/someDataSet",
+      "hdfsStatsDirectory" : "/group/someTenant/metadata/stats/someDataSet",
+      "hdfsCheckDirectory" : "/group/someTenant/metadata/check/someDataSet",
+      "hdfsHiveDirectory" : "/group/someTenant/metadata/hive/someDataSet",
+
+The name of the input file. It can contain variables of the form
+``<VARIABLE>`` or ``<VARIABLE:REGEX>``: a variable name followed by an
+optional regex that the variable should match. If no regex is given,
+the variable matches as many digits as there are letters in the
+variable name (yyyy matches 4 digits, dd matches 2 digits)::
+
+      "filePattern" : "log-<yyyy><mm><dd>_<server:\d>.csv"
+
+How to partition the output, of the form ``yyyy/mm/dd``. If not provided, default to all the variables in ``filePattern``, in the order in which they appear::
+
+      "partitionBy" : "yyyy/server/mm"
+
+The kind of partition to use in the output. For more details, see the
+:ref:`the output the clean command <clean-output>`. This is
+deprecated, ``filePattern`` should be used instead::
+
+      "partition" : null,
+
+The name of the input file. It may include a date pattern
+("yyyymmddhh", "yyyymmdd", "yyyyMMdd", "hhmmss", "yyyymm", or
+"yymm"). This is deprecated, ``partitionBy`` should be used instead::
+
+      "fileName" : "pouet.txt",
+
+The charset of the input file (learn about this on `wikipedia <http://en.wikipedia.org/wiki/Character_encoding>`_)::
+
+      "charset" : "UTF-8",
+
+The delimiter in the csv input file::
+
+      "delimiter" : "¤",
+
+The delimiter of the csv output file (optional, uses the input delimiter if not given)::
+
+      "dataDelimiter" : null,
+
+The csv escape char to use. Default to ``\``. Change this if you have ``\`` in your data and don't want it to be destroyed by the clean::
+
+      "escapeChar" : null,
+
+The csv quote char to use. Default to ``"``. Change this if you have ``"`` in your data and don't want it to be destroyed by the clean::
+
+      "quoteChar" : null,
+
+Whether to work in delta mode. See :ref:`the output the clean command <clean-output>` for more details on the delta mode::
+
+      "delta" : true,
+
+If set, reduce to the given number of spark partitions. Use when you have a lot of small files::
+
+      "numberOfPartitionPerFile" : null,
+
+The filter to apply on the file. Lines filtered out are not included in the output. Options include "HEADER" and "BICOLOR".
+
+      "filter" : "HEADER",
+
+The name of the tenant::
+
+      "tenant" : "someTenant",
+
+The format of the output. Can be TEXT, PARQUET or AVRO::
+
+      "storageFormat" : "TEXT"
+
+Information about the hive table::
+
+      "hiveTable" : {
+
+Name of the hive database ::
+
+        "database" : "test",
+
+Name of the hive table ::
+
+        "name" : "pouet",
+
+The list of fields::
+
+        "hiveFields" : [ {
+
+The name of the field::
+
+          "name" : "firstname",
+
+The type of the field, can be STRING, FLOAT, DOUBLE, INTEGER, LONG, DATE, DECIMAL or BOOLEAN::
+
+          "colType" : "STRING",
+
+A transformation to apply. Can be COMMA, SAP or DATE. See :ref:`the output the clean command <clean-output>` for more
+info about the transformations. If there is a transformation and it requires an argument, pattern contains the argument::
+
+          "transformation" : null,
+          "pattern" : null,
+
+A comment describing the field::
+
+          "comment" : null,
+
+A field may only be found in input files after a certain date. If the input file is before that date, the default value
+is used (if no default is provided, the field is left empty)::
+
+          "validFrom" : "2015-12-25",
+          "defaultWhenInvalid" : null
+
+The field can be repeated as many times as necessary ::
+
+        }, {
+          "name" : "name",
+          "colType" : "STRING",
+          "transformation" : null,
+          "comment" : null,
+          "pattern" : null,
+          "validFrom" : null,
+          "defaultWhenInvalid" : null
+        }]

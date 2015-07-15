@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The check command &mdash; Thetis 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Thetis 2.0 documentation" href="index.html"/>
+        <link rel="next" title="The stats command" href="stats.html"/>
+        <link rel="prev" title="The clean command" href="clean.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Thetis
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get-started.html">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#commands">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get-started.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hdfs.html">The HDFS structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">The schema.json file</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schema.html#fields">Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="infer-schema.html">The infer-schema command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infer-schema.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="create.html">The create command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="create.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clean.html">The clean command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">The check command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-criteria">Check criteria</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">The stats command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refresh.html">The refresh command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="refresh.html#example">Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-true">delta=true</a></li>
+<li class="toctree-l3"><a class="reference internal" href="refresh.html#delta-false">delta=false</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">The merge command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="oozie.html">Deploying thetis with Oozie</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oozie.html#common-setup">Common setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oozie.html#setting-up-an-engine">Setting up an engine</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Thetis</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>The check command</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/check.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="the-check-command">
+<h1>The check command<a class="headerlink" href="#the-check-command" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal"><span class="pre">check</span></code> command can be used to check that the schema for a dataset or a list of dataset actually matches the data.
+It performs the same operations as <code class="docutils literal"><span class="pre">clean</span></code>, but does not output the resulting files. Instead, it provides a report
+containing information about the data.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>The usage is the same as the other commands. See (TODO).</p>
+</div>
+<div class="section" id="check-criteria">
+<h2>Check criteria<a class="headerlink" href="#check-criteria" title="Permalink to this headline">¶</a></h2>
+<p>Check will look at the criteria file (<code class="docutils literal"><span class="pre">/group/TENANT/metadata/criteria/criteria.json</span></code>) to determine whether to
+consider a file as OK. If the file does not exist, all lines will be considered OK.</p>
+<p><code class="docutils literal"><span class="pre">criteria.json</span></code> is a json file with the following fields:</p>
+<dl class="docutils">
+<dt>maxRatioNbLines</dt>
+<dd>The maximum ratio between the number of lines of two consecutive files. This help detects if a file is much bigger or much smalled than usual.</dd>
+<dt>maxRatioSize:</dt>
+<dd>Same as the previous one, but with raw size of the file</dd>
+<dt>maxKoPerCol:</dt>
+<dd>The maximum number of bad fields per column</dd>
+<dt>validateHeader:</dt>
+<dd>Whether to validate the header</dd>
+<dt>validateLastLine:</dt>
+<dd>Whether to validate the last line</dd>
+</dl>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The report is written in the check folder, which can be configured in the schema as <code class="docutils literal"><span class="pre">hdfsCheckDirectory</span></code> and defaults to
+<code class="docutils literal"><span class="pre">/group/TENANT/metadata/check/DATASET/</span></code>. It is also written in <code class="docutils literal"><span class="pre">/group/TENANT/metadata/check/reports/DATETIME</span></code>.</p>
+<p>The report is a csv field with one line by input file. Each line has the following fields :</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>fileOK</td>
+<td>Whether the file is okay (<cite>true</cite> or <cite>false</cite>). This depends on the check criteria (see above)</td>
+</tr>
+<tr class="row-even"><td>datasetName</td>
+<td>The name of the dataset</td>
+</tr>
+<tr class="row-odd"><td>fileName</td>
+<td>The name of the input file</td>
+</tr>
+<tr class="row-even"><td>partitionPath</td>
+<td>The path of the partition, if there is one</td>
+</tr>
+<tr class="row-odd"><td>size</td>
+<td>The size of the file</td>
+</tr>
+<tr class="row-even"><td>ratioSize</td>
+<td>The ratio between the size of the file, and the size of the previous file (chronologically) in the dataset</td>
+</tr>
+<tr class="row-odd"><td>headerOk</td>
+<td>Whether the header is okay</td>
+</tr>
+<tr class="row-even"><td>colPlus</td>
+<td>Columns that were added compared to the previous file (if any)</td>
+</tr>
+<tr class="row-odd"><td>colMinus</td>
+<td>Columns that were removed compared to the previous file (if any)</td>
+</tr>
+<tr class="row-even"><td>nbCol</td>
+<td>The number of columns</td>
+</tr>
+<tr class="row-odd"><td>nbLines</td>
+<td>The number of lines</td>
+</tr>
+<tr class="row-even"><td>ratioNbLines</td>
+<td>The ratio between the number of lines of the file, and the number of lines of the previous file</td>
+</tr>
+<tr class="row-odd"><td>lastLineOk</td>
+<td>Whether the last line is okay (has the right number of fields). If that&#8217;s not the case, maybe the file wasn&#8217;t
+fully transfered</td>
+</tr>
+<tr class="row-even"><td>lineKO</td>
+<td>The number of bad lines (wring number of fields)</td>
+</tr>
+<tr class="row-odd"><td>percentLineKO</td>
+<td>The percentage of bad lines</td>
+</tr>
+<tr class="row-even"><td>colKo</td>
+<td>The list of columns were the type conversion fails, along with the number for failing fields</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>The bad lines are written in the following folder <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">/group/TENANT/metadata/check/DATASET/bad_lines/</span></code> You will find one folder</span></dt>
+<dd>by file containing bad lines. In each folder you will find a file containing the bad lines.</dd>
+</dl>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>./thetis.sh --tenant someTenant --dataset someDataset check
+</pre></div>
+</div>
+<p>The resulting check report might look like:</p>
+<div class="highlight-python"><div class="highlight"><pre>fileOK|datasetName|fileName|partitionDate|size|ratioSize|headerOk|colPlus|colMinus|nbCol|nbLines|ratioNbLines|lastLineOk|lineKO|percentLineKO|colKo
+true|logs|webserver_log_file_2015_03_01.txt|None|3981423495|None|true|||14|45022551|None|true|194994|0.43310293555259705|
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="stats.html" class="btn btn-neutral float-right" title="The stats command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="clean.html" class="btn btn-neutral" title="The clean command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, DIL.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
