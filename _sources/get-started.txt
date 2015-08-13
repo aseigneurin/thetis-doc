@@ -1,8 +1,8 @@
 Get started
 ===========
 
-Thetis is a software that allows you to clean automatically you data. On top of that Thetis can infer a schema on your
-data, check if your data have been correctly cleaned and make some statistics on your features. Furthermore, report are
+Thetis is a software that allows you to clean automatically you data. On top of that, Thetis can infer a schema on your
+data, check if your data have been correctly cleaned and make some statistics on your features. Furthermore, reports are
 created for each step of Thetis. You can access the report either by downloading a csv file or by requesting a Hive
 table (with Hive or Impala).
 
@@ -13,7 +13,7 @@ technical configurations but only business ones. To run Thetise execute the foll
 ``./thetis.sh <args>``
 
 
-where ``<args>`` are somme arguments detailed below.
+where ``<args>`` are some arguments detailed below.
 
 
 Commands
@@ -28,7 +28,7 @@ check
   Check that some data is valid according to the schema, and output validation info in /group/TENANT/metadata/check/DATASET
 
 clean
-  Clean some data, reading it using a schema, and output clean data in /group/TENANT/data/DATASET
+  Clean some data, reading it using a schema, and output cleaned data in /group/TENANT/data/DATASET
 
 clean-parquet
   Same as clean, but output parquet files
